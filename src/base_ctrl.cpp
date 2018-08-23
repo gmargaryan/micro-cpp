@@ -3,3 +3,7 @@
 //
 
 #include "base_ctrl.h"
+
+namespace microcpp {
+
+}// micro_cpp

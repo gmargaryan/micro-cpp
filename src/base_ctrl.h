@@ -6,9 +6,12 @@
 #define MICRO_CPP_BASE_CTRL_H
 
 
-class base_ctrl {
+namespace micro_cpp {
 
-};
+    class base_ctrl {
+
+    };
+}// micro_cpp
 
 
 #endif //MICRO_CPP_BASE_CTRL_H
