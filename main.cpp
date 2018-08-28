@@ -1,3 +1,7 @@
+//
+// Created by Garegin Margaryan on 8/23/18.
+//
+
 #include <iostream>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
@@ -7,13 +11,15 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/version.hpp>
 #include <boost/config.hpp>
+#include "src/listener.h"
 
 using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 namespace ssl = boost::asio::ssl;       // from <boost/asio/ssl.hpp>
 namespace http = boost::beast::http;    // from <boost/beast/http.hpp>
+using namespace micro_cpp;
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) try {
 
     // check service's command line arguments
     if(argc!=5) {
@@ -29,6 +35,18 @@ int main(int argc, char* argv[]) {
     auto const doc_root = std::string{argv[3]};
     auto const n_threads = std::max(1,std::stoi(argv[4]));
 
+    // create boost::asio context with n_threads threads allowed to run simultaneously
+    boost::asio::io_context micro_context{n_threads};
+
+    // initialize and lunch listening port
+    std::make_shared<micro_cpp::listener>(micro_context
+            , boost::asio::ip::tcp::endpoint{local_ip, loacl_port}
+            , doc_root)->run();
 
     return 0;
+
+}  catch (std::exception& e) {
+
+    std::cerr << e.what() << "\n";
+
 }
