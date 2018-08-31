@@ -35,7 +35,7 @@ set(OPENSSL_LIBS "/usr/local/Cellar/openssl/${OPENSSL_VERSION}/lib/libssl.1.0.0.
 set(CMAKE_CXX_FLAGS "-arch x86_64 -v -std=c++11 -stdlib=libc++ -DBOOST_LOG_DYN_LINK -Wno-deprecated-declarations -I/usr/local/Cellar/openssl/1.0.2p/include/")
 # END
 
-add_executable(micro_cpp main.cpp src/base_ctrl.cpp src/base_ctrl.h)
+add_executable(micro_cpp main.cpp src/session.cpp src/session.h src/listener.cpp src/listener.h src/utility.cpp src/utility.h)
 
 set(LIBRARIES_SEARCH_PATHS ${OPENSSL_LIBS} ${Boost_LIBRARIES})
 

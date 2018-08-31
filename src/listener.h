@@ -20,9 +20,7 @@ namespace micro_cpp {
     public:
 
         // Constructor
-        listener( boost::asio::io_context& cnt
-                , boost::asio::ip::tcp::endpoint ep
-                , std::shared_ptr<std::string const> const& doc_root);
+        listener(boost::asio::io_context&, boost::asio::ip::tcp::endpoint, std::shared_ptr<std::string const> const&);
 
         //
         void run();
