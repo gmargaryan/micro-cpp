@@ -26,13 +26,13 @@ int main(int argc, char* argv[]) try {
     if(argc!=5) {
 
         std::cerr << "Usage: micro-cpp <address> <port> <doc_root> <threads>\n"
-                  << "Example: micro-cpp 0.0.0.0 . 8080 1\n";
+                  << "Example: micro-cpp 0.0.0.0 8080 . 1\n";
         return EXIT_FAILURE;
     }
 
     // Retrieve initial config params.
     auto const local_ip = boost::asio::ip::make_address(argv[1]);
-    auto const loacl_port = static_cast<ushort>(std::stoi(argv[2]));
+    auto const local_port = static_cast<unsigned short>(std::stoi(argv[2]));
     auto const doc_root = std::make_shared<std::string>(argv[3]);
     auto const n_threads = std::max(1,std::stoi(argv[4]));
 
@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) try {
 
     // Initialize and lunch listening port.
     std::make_shared<micro_cpp::listener>(micro_context
-            , boost::asio::ip::tcp::endpoint{local_ip, loacl_port}
+            , boost::asio::ip::tcp::endpoint{local_ip, local_port}
             , doc_root)->run();
 
     // Run boost I/O service on the requested number of threads.
