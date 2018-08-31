@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "listener.h"
-#include "base_session.h"
+#include "session.h"
 
 
 namespace micro_cpp {
@@ -90,7 +90,7 @@ namespace micro_cpp {
         } else {
 
             // Create new Session and run it
-            std::make_shared<micro_cpp::base_session>(std::move(socket_), doc_root_)->run();
+            std::make_shared<micro_cpp::session>(std::move(socket_), doc_root_)->run();
         }
 
         // Accept another connection
