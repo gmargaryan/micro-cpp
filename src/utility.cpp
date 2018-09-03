@@ -4,6 +4,7 @@
 
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http.hpp>
+#include <iostream>
 
 #include "utility.h"
 
@@ -66,6 +67,7 @@ namespace micro_cpp {
 #endif
         return result;
     }
+
 
 }
 

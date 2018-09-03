@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <csignal>
 #include "listener.h"
 #include "session.h"
 

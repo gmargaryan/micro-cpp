@@ -13,6 +13,7 @@
 #include <boost/config.hpp>
 #include <thread>
 #include "src/listener.h"
+#include "src/utility.h"
 
 using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 namespace ssl = boost::asio::ssl;       // from <boost/asio/ssl.hpp>
@@ -21,6 +22,9 @@ using namespace micro_cpp;
 
 
 int main(int argc, char* argv[]) try {
+
+    // Set interrupt handlers
+    utility::set_hook();
 
     // Check service's command line arguments.
     if(argc!=5) {

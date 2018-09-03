@@ -9,17 +9,39 @@
 #include <boost/beast/core/string.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/version.hpp>
+#include <csignal>
 
 namespace micro_cpp {
 
     namespace http = boost::beast::http;
 
+    static std::condition_variable interrupt_condition_;
+    static std::mutex interrupt_mutex_;
+
     class utility {
 
-    public:
+    public: // signal handling
+
+        static void set_hook() {
+            std::signal(SIGINT, utility::handle_user_interrupt);
+        }
+
+        static void handle_user_interrupt(int sig) {
+            if (sig == SIGINT) {
+                interrupt_condition_.notify_one();
+            }
+        }
+
+        static void wait_for_user_interrupt() {
+            std::unique_lock<std::mutex> lock { interrupt_mutex_ };
+            interrupt_condition_.wait(lock);
+            lock.unlock();
+        }
+
+    public: // http message handling
+
         static boost::beast::string_view mime_type(boost::beast::string_view path);
         static std::string path_cat(boost::beast::string_view base, boost::beast::string_view path);
-
     };
 
     // This function produces an HTTP response for the given
